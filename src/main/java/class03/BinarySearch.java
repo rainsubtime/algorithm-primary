@@ -1,9 +1,14 @@
 package class03;
 
+import java.util.Arrays;
+
 public class BinarySearch {
 
     public static void main(String[] args) {
-
+        int[] arr = randomLenRandomValue(20,10);
+        Arrays.sort(arr);
+        printArray(arr);
+        System.out.println(find(arr,5));
     }
 
     private static int[] randomLenRandomValue(int maxLen,int maxValue){
@@ -19,10 +24,25 @@ public class BinarySearch {
         int L = 0;
         int R = arr.length - 1;
         int M = 0;
-        while(L < R && arr[M] != num){
+        while(L <= R){
             M = (L + R) / 2;
-
+            if(arr[M] == num){
+                return M;
+            } else if (arr[M] < num) {
+                L = M + 1;
+            } else if (arr[M] > num) {
+                R = M - 1;
+            }
         }
-        return 1;
+        return -1;
+    }
+
+    public static void printArray(int[] nums){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < nums.length; i++){
+            stringBuilder.append(" ");
+            stringBuilder.append(nums[i]);
+        }
+        System.out.println(stringBuilder.toString());
     }
 }
