@@ -16,12 +16,24 @@ public class BitMap {
         bitMap = new long[(max >> 6) + 1];
     }
 
-    public void add(int value){
-        bitMap[value >> 6] |= 1 << value;
+    public void add(int num){
+        bitMap[num >> 6] |= 1L << (num & 63);
+    }
+
+    public void del(int num){
+        bitMap[num >> 6] &= ~(1L << (num & 63));
+    }
+
+    public boolean contains(int num){
+         return (bitMap[num >> 6] & 1L << (num & 63)) > 0;
     }
 
     public static void main(String[] args) {
-
+        BitMap bitMap1 = new BitMap(10);
+        bitMap1.add(1);
+        System.out.println(bitMap1.contains(1));
+        bitMap1.del(1);
+        System.out.println(bitMap1.contains(1));
 
 
     }
