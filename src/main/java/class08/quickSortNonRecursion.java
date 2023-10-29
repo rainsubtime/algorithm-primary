@@ -30,7 +30,12 @@ public class quickSortNonRecursion {
         while(!jobStack.isEmpty()){
             Job pop = jobStack.pop();
             int[] partition = partition(arr, pop.L, pop.R);
-            if(partition[0] <)
+            if(partition[0] > pop.L){
+                jobStack.push(new Job(pop.L,partition[0] - 1));
+            }
+            if(partition[1] < pop.R){
+                jobStack.push(new Job(partition[1] + 1,pop.R));
+            }
         }
 
     }
@@ -42,11 +47,9 @@ public class quickSortNonRecursion {
         while(p < thanL){
             if(arr[p] < arr[R]){
                 swap(arr,p++,++lessR);
-            }
-            if(arr[p] == arr[R]){
+            }else if (arr[p] == arr[R]){
                 p++;
-            }
-            if(arr[p] > arr[R]){
+            }else {
                 swap(arr,p,--thanL);
             }
         }
@@ -58,5 +61,14 @@ public class quickSortNonRecursion {
         int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[] array = new int[]{1,4,2,3,7,3,6};
+
+        quickSort(array);
+        for(int i = 0; i < array.length; i ++){
+            System.out.print(array[i] + " ");
+        }
     }
 }
